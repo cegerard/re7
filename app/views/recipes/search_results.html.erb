@@ -1,0 +1,12 @@
+<h1>Found Recipes</h1>
+
+<p></p>
+
+<ul>
+  <% @found_recipes.each do |recipe| %>
+    <li>
+      <h2><%= recipe.title %></h2>
+      <p><%= recipe.ingredients %></p>
+    </li>
+  <% end %>
+</ul>
