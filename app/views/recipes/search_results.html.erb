@@ -17,13 +17,13 @@
   <% if @found_recipes.empty? %>
     <p>Aucune recette ne correspond à votre liste d'ingrédients</p>
   <% else %>
-  <ul class="list-group list-group-flush">
+  <div class="list-group list-group-flush">
     <% @found_recipes.each do |recipe| %>
-      <li class="list-group-item">
+      <a href=<%= "#{recipe.id}" %> class="list-group-item">
         <h2><%= recipe.title %></h2>
         <p><%= recipe.ingredients %></p>
-      </li>
+      </a>
     <% end %>
-  </ul>
+  </div>
   <% end %>
 </div>
