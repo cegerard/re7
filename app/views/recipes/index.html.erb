@@ -1,16 +1,22 @@
-<h1>Recipes</h1>
+<h1>Recettes</h1>
 
-<%= form_with url: "/recipes/search", method: :get do |form| %>
-  <%= form.label :query, "Find from ingredients:" %>
-  <%= form.text_field :query %>
-  <%= form.submit "Search" %>
-<% end %>
-
-<ul>
-  <% @recipes.each do |recipe| %>
-    <li>
-      <h2><%= recipe.title %></h2>
-      <p><%= recipe.ingredients %></p>
-    </li>
+<div>
+  <%= form_with url: "/recipes/search", method: :get, class: "d-flex flex-column justify-content-between" do |form| %>
+    <%= form.label :query, "Rechercher par ingrédients (séparés par une virgule)", class: "form-label"%>
+    <%= form.text_field :query, placeholder: "poulet, avocat, coco", class: "form-control mb-2" %>
+    <%= form.submit "Rechercher", class: "btn btn-primary align-self-end" %>
   <% end %>
-</ul>
+<div>
+
+<div>
+  <h2>Les dernières recettes</h2>
+
+  <ul class="mt-4 list-group list-group-flush">
+    <% @recipes.each do |recipe| %>
+      <li class="list-group-item">
+        <h2><%= recipe.title %></h2>
+        <p><%= recipe.ingredients %></p>
+      </li>
+    <% end %>
+  </ul>
+</div>

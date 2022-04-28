@@ -1,12 +1,29 @@
-<h1>Found Recipes</h1>
+<h1>Résultats de recherche</h1>
 
-<p></p>
+<div class="d-flex justify-content-between">
+  <p class="fw-bold">
+    <%= @found_recipes.size%>
+    <% if @found_recipes.size > 1 %>
+      Recettes
+    <% else %>
+      Recette
+    <% end %>
+    à base de <%= @query%>
+  </p>
+  <%= link_to "Nouvelle recherche", "/", class: "btn btn-outline-primary" %>
+</div>
 
-<ul>
-  <% @found_recipes.each do |recipe| %>
-    <li>
-      <h2><%= recipe.title %></h2>
-      <p><%= recipe.ingredients %></p>
-    </li>
+<div class="mt-2">
+  <% if @found_recipes.empty? %>
+    <p>Aucune recette ne correspond à votre liste d'ingrédients</p>
+  <% else %>
+  <ul class="list-group list-group-flush">
+    <% @found_recipes.each do |recipe| %>
+      <li class="list-group-item">
+        <h2><%= recipe.title %></h2>
+        <p><%= recipe.ingredients %></p>
+      </li>
+    <% end %>
+  </ul>
   <% end %>
-</ul>
+</div>
