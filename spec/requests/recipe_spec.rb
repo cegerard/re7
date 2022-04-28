@@ -7,4 +7,11 @@ RSpec.describe 'Recipe', type: :request do
       expect(response).to render_template('search_results')
     end
   end
+
+  describe 'GET show' do
+    it('render the show template') do
+      get '/recipes/1'
+      expect(response).to render_template('show')
+    end
+  end
 end
