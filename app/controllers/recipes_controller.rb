@@ -4,9 +4,9 @@ class RecipesController < ApplicationController
   end
 
   def search
-    query = params[:query]
+    @query = params[:query]
 
-    result = SearchRecipe.new.from(query) if query.present?
+    result = SearchRecipe.new.from(@query) if @query.present?
 
     @found_recipes = result || []
     render template: 'recipes/search_results'
