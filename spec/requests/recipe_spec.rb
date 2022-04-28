@@ -9,9 +9,11 @@ RSpec.describe 'Recipe', type: :request do
   end
 
   describe 'GET show' do
+    let(:recipe) { create(:recipe) }
     it('render the show template') do
-      get '/recipes/1'
-      expect(response).to render_template('show')
+      get "/recipes/#{recipe.id}"
+      
+      expect(response).to render_template(:show)
     end
   end
 end
