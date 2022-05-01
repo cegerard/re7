@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+![test](https://github.com/cegerard/re7/actions/workflows/tests.yml/badge.svg)
+![deploy](https://github.com/cegerard/re7/actions/workflows/deploy.yml/badge.svg)
 
-Things you may want to cover:
 
-* Ruby version
+This application is deploy on Heroku and is currently available [here](https://re7finder.herokuapp.com/)
 
-* System dependencies
+## CI
 
-* Configuration
+There is a simple CI based on Github actions. Tests are run on each MR and are mandatory to merge on the main branch.
 
-* Database creation
+When there is an MR merge on the main branch, two worwflows are run. The first one test the main branch and the second deploy to Heroku.
+The deploy job push the source code to Heroku, then it is deploy into production dyno. Migration are run from a Procfile release task. 
 
-* Database initialization
+## Database
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+For local and test envrionnement we are using sqlite. In production the database used is Postgres.
