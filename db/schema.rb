@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_28_200827) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_29_085530) do
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name"
+    t.integer "energy"
+    t.float "carbohydrate"
+    t.float "salt"
+    t.float "protein"
+    t.float "lipids"
+    t.float "sugar"
+    t.float "fibers"
+    t.float "saturated_fatty_acids"
+    t.boolean "archived", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recipes", force: :cascade do |t|
     t.string "title"
     t.text "ingredients"

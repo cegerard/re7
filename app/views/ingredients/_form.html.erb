@@ -1,0 +1,62 @@
+<%= form_with(model: ingredient) do |form| %>
+  <% if ingredient.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
+
+      <ul>
+        <% ingredient.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :energy, style: "display: block" %>
+    <%= form.number_field :energy %>
+  </div>
+
+  <div>
+    <%= form.label :carbohydrate, style: "display: block" %>
+    <%= form.text_field :carbohydrate %>
+  </div>
+
+  <div>
+    <%= form.label :salt, style: "display: block" %>
+    <%= form.text_field :salt %>
+  </div>
+
+  <div>
+    <%= form.label :protein, style: "display: block" %>
+    <%= form.text_field :protein %>
+  </div>
+
+  <div>
+    <%= form.label :lipids, style: "display: block" %>
+    <%= form.text_field :lipids %>
+  </div>
+
+  <div>
+    <%= form.label :sugar, style: "display: block" %>
+    <%= form.text_field :sugar %>
+  </div>
+
+  <div>
+    <%= form.label :fibers, style: "display: block" %>
+    <%= form.text_field :fibers %>
+  </div>
+
+  <div>
+    <%= form.label :saturated_fatty_acids, style: "display: block" %>
+    <%= form.text_field :saturated_fatty_acids %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
