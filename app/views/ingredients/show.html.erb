@@ -6,5 +6,9 @@
   <%= link_to "Edit this ingredient", edit_ingredient_path(@ingredient) %> |
   <%= link_to "Back to ingredients", ingredients_path %>
 
-  <%= button_to "Archive this ingredient", { action: :archive, id: @ingredient.id } %>
+  <% if @ingredient.archived%>
+    <%= button_to "Unarchive this ingredient", { action: :unarchive, id: @ingredient.id } %>
+  <% else %>
+    <%= button_to "Archive this ingredient", { action: :archive, id: @ingredient.id } %>
+  <% end %>
 </div>

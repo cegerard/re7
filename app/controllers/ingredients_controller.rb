@@ -1,5 +1,5 @@
 class IngredientsController < ApplicationController
-  before_action :set_ingredient, only: %i[ show edit update archive ]
+  before_action :set_ingredient, only: %i[ show edit update archive unarchive ]
 
   # GET /ingredients or /ingredients.json
   def index
@@ -53,6 +53,16 @@ class IngredientsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to ingredients_url, notice: "Ingredient was successfully archived." }
+      format.json { head :no_content }
+    end
+  end
+
+  # POST /ingredients/1/unarchive
+  def unarchive
+    @ingredient.unarchive
+
+    respond_to do |format|
+      format.html { redirect_to ingredients_url, notice: "Ingredient was successfully unarchived." }
       format.json { head :no_content }
     end
   end

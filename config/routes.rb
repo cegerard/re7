@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   
   resources :ingredients, except: [:destroy]
   post '/ingredients/:id/archive', to: "ingredients#archive"
+  post '/ingredients/:id/unarchive', to: "ingredients#unarchive"
   
   get '/recipes/search', to: "recipes#search"
   get '/recipes/:id', to: "recipes#show"
