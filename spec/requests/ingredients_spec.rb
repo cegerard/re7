@@ -17,11 +17,23 @@ RSpec.describe "/ingredients", type: :request do
   # Ingredient. As you add validations to Ingredient, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      name: "tomato",
+      energy: 100,
+      carbohydrate: 10,
+      salt: 10,
+      protein: 10,
+      lipids: 10,
+      sugar: 10,
+      fibers: 10,
+      saturated_fatty_acids: 10
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      name: nil,
+    }
   }
 
   describe "GET /index" do
@@ -76,9 +88,9 @@ RSpec.describe "/ingredients", type: :request do
         }.to change(Ingredient, :count).by(0)
       end
 
-      it "renders a successful response (i.e. to display the 'new' template)" do
+      it "renders an unprocessable response (i.e. to display the 'new' template)" do
         post ingredients_url, params: { ingredient: invalid_attributes }
-        expect(response).to be_successful
+        expect(response).to be_unprocessable
       end
     end
   end
@@ -86,14 +98,16 @@ RSpec.describe "/ingredients", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name: 'New name'
+        }
       }
 
       it "updates the requested ingredient" do
         ingredient = Ingredient.create! valid_attributes
         patch ingredient_url(ingredient), params: { ingredient: new_attributes }
         ingredient.reload
-        skip("Add assertions for updated state")
+        expect(ingredient.name).to eq('New name')
       end
 
       it "redirects to the ingredient" do
@@ -105,25 +119,40 @@ RSpec.describe "/ingredients", type: :request do
     end
 
     context "with invalid parameters" do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
+      it "renders an unprocessable response (i.e. to display the 'edit' template)" do
         ingredient = Ingredient.create! valid_attributes
         patch ingredient_url(ingredient), params: { ingredient: invalid_attributes }
-        expect(response).to be_successful
+        expect(response).to be_unprocessable
       end
     end
   end
 
-  describe "DELETE /destroy" do
-    it "destroys the requested ingredient" do
+  describe "POST /archive" do
+    it "archive the requested ingredient" do
       ingredient = Ingredient.create! valid_attributes
-      expect {
-        delete ingredient_url(ingredient)
-      }.to change(Ingredient, :count).by(-1)
+      post "/ingredients/#{ingredient.id}/archive"
+      ingredient.reload
+      expect(ingredient.archived).to eq(true)
     end
 
     it "redirects to the ingredients list" do
       ingredient = Ingredient.create! valid_attributes
-      delete ingredient_url(ingredient)
+      post "/ingredients/#{ingredient.id}/archive"
+      expect(response).to redirect_to(ingredients_url)
+    end
+  end
+
+  describe "POST /unarchive" do
+    it "unarchive the requested ingredient" do
+      ingredient = Ingredient.create! valid_attributes.merge(archived: true)
+      post "/ingredients/#{ingredient.id}/unarchive"
+      ingredient.reload
+      expect(ingredient.archived).to eq(false)
+    end
+
+    it "redirects to the ingredients list" do
+      ingredient = Ingredient.create! valid_attributes.merge(archived: true)
+      post "/ingredients/#{ingredient.id}/unarchive"
       expect(response).to redirect_to(ingredients_url)
     end
   end

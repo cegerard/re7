@@ -12,18 +12,19 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_04_29_085530) do
   create_table "ingredients", force: :cascade do |t|
-    t.string "name"
-    t.integer "energy"
-    t.float "carbohydrate"
-    t.float "salt"
-    t.float "protein"
-    t.float "lipids"
-    t.float "sugar"
-    t.float "fibers"
-    t.float "saturated_fatty_acids"
+    t.string "name", null: false
+    t.integer "energy", null: false
+    t.float "carbohydrate", null: false
+    t.float "salt", null: false
+    t.float "protein", null: false
+    t.float "lipids", null: false
+    t.float "sugar", null: false
+    t.float "fibers", null: false
+    t.float "saturated_fatty_acids", null: false
     t.boolean "archived", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_ingredients_on_name", unique: true
   end
 
   create_table "recipes", force: :cascade do |t|
