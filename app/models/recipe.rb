@@ -16,4 +16,8 @@ class Recipe < ApplicationRecord
     Recipe.where(where_sql, *ingredient_param).limit(max)
   end
 
+  def archive
+    update(archived: true)
+  end
+
 end

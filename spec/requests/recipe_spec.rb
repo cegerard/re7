@@ -16,4 +16,15 @@ RSpec.describe 'Recipe', type: :request do
       expect(response).to render_template(:show)
     end
   end
+
+  describe 'POST /archive' do
+    let(:recipe) { create(:recipe) }
+
+    it('archive the recipe') do
+      post "/recipes/#{recipe.id}/archive"
+
+      recipe.reload
+      expect(recipe.archived?).to be_truthy
+    end
+  end
 end

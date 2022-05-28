@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  before_action :set_recipe, only: %i[ show archive ]
+
   def index
     @recipes = Recipe.last_ten_recipes
   end
@@ -16,5 +18,22 @@ class RecipesController < ApplicationController
 
     @found_recipes = result || []
     render template: 'recipes/search_results'
+  end
+
+  def archive
+    @recipe.archive
+
+    respond_to do |format|
+      format.html { redirect_to root_url, notice: "Recipe was successfully archived." }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+  
+  def set_recipe
+    @recipe = Recipe.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
   end
 end
