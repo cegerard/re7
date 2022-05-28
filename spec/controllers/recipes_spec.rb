@@ -93,4 +93,36 @@ RSpec.describe RecipesController, type: :controller do
       end
     end
   end
+
+  describe 'POST archive' do
+    context 'when the recipe is not archived' do
+      let(:recipe) { create(:recipe) }
+
+      it 'archive the recipe' do
+        post :archive, params: { id: recipe.id }
+
+        recipe.reload
+        expect(recipe.archived?).to be_truthy
+      end
+    end
+
+    context 'when the recipe is already archived' do
+      let(:recipe) { create(:recipe, archived: true) }
+
+      it 'keep the archive field to true' do
+        post :archive, params: { id: recipe.id }
+
+        recipe.reload
+        expect(recipe.archived?).to be_truthy
+      end
+    end
+
+    context 'when the recipe does not exist' do
+      it 'returns a not found status' do
+        post :archive, params: { id: 'not found' }
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end

@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   
   get '/recipes/search', to: "recipes#search"
   get '/recipes/:id', to: "recipes#show"
+  post '/recipes/:id/archive', to: "recipes#archive"
+
   
 end
